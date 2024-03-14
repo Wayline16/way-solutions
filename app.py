@@ -11,6 +11,11 @@ def hello_wayline():
   jobs = load_jobs_from_db()
   return render_template('home.html', jobs=jobs)
 
+@app.route("/about")
+def about_wayline():
+  jobs = load_jobs_from_db()
+  return render_template('about.html')
+
 @app.route("/api/jobs")
 def list_jobs():
   jobs = load_jobs_from_db()

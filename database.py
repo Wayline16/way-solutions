@@ -9,6 +9,8 @@ engine = create_engine(db_connection_string, connect_args={
   }
 })
 
+#Load: jobs from the database
+
 def load_jobs_from_db():
   with engine.connect() as conn:
     result = conn.execute(
@@ -44,4 +46,35 @@ def add_application_to_db(job_id, application):
 
     conn.execute(query)
 
+#Load: technologies from database
+
+def load_tech_from_db():
+  with engine.connect() as conn:
+    result = conn.execute(
+      text("SELECT * FROM technologies")
+    )
+    result_all = result.fetchall()
+    technologies = []
+    if result_all:
+      column_names = result.keys()
+      technologies = [dict(zip(column_names, row)) for row in result_all]
+    else:
+      print("No results found.")
+  return technologies
+
+
+def load_tech_id_from_db(id):
+  with engine.connect() as conn:
+      query = text("SELECT * FROM technologies WHERE id = :id").params(id=id)
+      result = conn.execute(query)
+      result_all = result.fetchall()
+
+      technology = []
+      if result_all:
+          column_names = result.keys()
+          technology = [dict(zip(column_names, row)) for row in result_all]
+      else:
+          print("No results found.")
+
+      return technology[0]
     

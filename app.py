@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_jobs_from_db, load_job_from_db, add_application_to_db
+from database import load_jobs_from_db, load_job_from_db, add_application_to_db,load_tech_from_db, load_tech_id_from_db
 
 app = Flask(__name__)
 
@@ -8,14 +8,17 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_wayline():
-  jobs = load_jobs_from_db()
-  return render_template('home.html', jobs=jobs)
+  #jobs = load_jobs_from_db()
+  technologies = load_tech_from_db()
+  return render_template('home.html', technologies=technologies)
 
 @app.route("/about")
 def about_wayline():
-  jobs = load_jobs_from_db()
+  #jobs = load_jobs_from_db()
   return render_template('about.html')
 
+
+#Render job pages
 @app.route("/api/jobs")
 def list_jobs():
   jobs = load_jobs_from_db()
@@ -42,6 +45,11 @@ def apply_to_job(id):
                           application=data,
                         job=job)
 
+#Render technology pages
+@app.route("/tech/<id>")
+def show_tech(id):
+  technology = load_tech_id_from_db(id)
+  return render_template('techpage.html', technology=technology)
 
 
 if __name__ == "__main__":

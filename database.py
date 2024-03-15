@@ -77,4 +77,19 @@ def load_tech_id_from_db(id):
           print("No results found.")
 
       return technology[0]
-    
+
+#Load: service from database
+
+def load_services_from_db():
+  with engine.connect() as conn:
+    result = conn.execute(
+      text("SELECT * FROM services")
+    )
+    result_all = result.fetchall()
+    services = []
+    if result_all:
+      column_names = result.keys()
+      services = [dict(zip(column_names, row)) for row in result_all]
+    else:
+      print("No results found.")
+    return services

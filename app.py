@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_jobs_from_db, load_job_from_db, add_application_to_db,load_tech_from_db, load_tech_id_from_db
+from database import load_jobs_from_db, load_job_from_db, add_application_to_db,load_tech_from_db, load_tech_id_from_db, load_services_from_db
 
 app = Flask(__name__)
 
@@ -10,7 +10,8 @@ app = Flask(__name__)
 def hello_wayline():
   #jobs = load_jobs_from_db()
   technologies = load_tech_from_db()
-  return render_template('home.html', technologies=technologies)
+  services = load_services_from_db()
+  return render_template('home.html', technologies=technologies, services=services)
 
 @app.route("/about")
 def about_wayline():

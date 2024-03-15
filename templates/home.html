@@ -25,6 +25,20 @@
         <img src="/static/people.jpg" style="height:320px; border-radius:4px;">
         </div>
       </div>
+      <h2 class="text-center mt-5 mb-4">Services</h2>
+
+
+      <div class="container">
+        <div class="row align-items-start">
+          {% for service in services %}
+          <div class="col-md-4 d-flex justify-content-center">
+            {% include 'services.html' %}
+            </div>
+          {% endfor %}
+           </div>
+        </div>
+      </div>
+    
       <h2 class="text-center mt-5 mb-4">Technologies</h2>
       
 
